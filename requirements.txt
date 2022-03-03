@@ -13,6 +13,7 @@ django-storages==1.12.3
 django-tinymce==3.3.0
 djangorestframework==3.12.4
 future==0.18.2
+gunicorn==20.1.0
 html5lib==1.1
 jmespath==0.10.0
 Pillow==8.3.2
