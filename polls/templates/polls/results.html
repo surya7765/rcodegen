@@ -1,0 +1,84 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<h1 class="mb-5 text-center">{{ question.question_text }}</h1>
+
+<ul class="list-group mb-5">
+	{% for choice in question.choice_set.all %}
+	<li class="list-group-item">
+		{{ choice.choice_text }}  <span class="badge badge-success float-right">{{ choice.votes }} vote{{ choice.votes | pluralize }}</span>
+	</li>
+	{% endfor %}
+</ul>
+
+<div style="margin:50px;">
+	<a class="btn btn-secondary" href="{% url 'polls-index' %}">Back To Polls</a>
+	<a class="btn btn-dark" href="{% url 'polls-detail' question.id %}">Vote again?</a>
+</div>
+<div style="margin:30px; "></div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+		var state = {
+			'items': [],
+			'values': []
+		};
+
+		var objId = "{{ question.id }}";
+		var dataURL = `/polls/resultdata/${objId}/`;
+		$.ajax({
+			method: "GET",
+			url: dataURL,
+			success:function(response){
+				{% comment %} console.log(response); {% endcomment %}
+				for(var i=0; i<response.length; i++){
+
+					var keys = Object.keys(response[i])[0];
+					var values = Object.values(response[i])[0];
+
+					state.items.push(keys);
+					state.values.push(values);
+
+				}
+				{% comment %} console.log(state); {% endcomment %}
+				buildChart();
+			}
+		});
+		
+		function buildChart() {
+			const ctx = document.getElementById('myChart');
+			const myChart = new Chart(ctx, {
+				type: 'pie',
+				data: {
+					labels: state.items,
+					datasets: [{
+						data: state.values,
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(255, 159, 64, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)'
+						],
+						borderWidth: 1
+					}]
+				},
+			});
+		}
+	</script>
+{% endblock %}
+
+{% block sidebar %}
+	<div class="col-md-4" style="margin-top:30px;">
+		<canvas id="myChart" width="100" height="100"></canvas>
+	</div>
+{% endblock %}
