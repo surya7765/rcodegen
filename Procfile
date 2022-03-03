@@ -1,0 +1,1 @@
+web: gunicorn code_blog.wsgi --timeout 40
