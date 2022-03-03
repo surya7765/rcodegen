@@ -7,10 +7,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
-    try:
-        instance.profile.save()
-    except ObjectDoesNotExist:
-        Profile.objects.get_or_create(user=instance)
+    if created:
+        Profile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
