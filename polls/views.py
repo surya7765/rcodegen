@@ -9,10 +9,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from polls.forms import QuestionForm, ChoiceFormSet
 from django.db import transaction
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-
 
 def home(request):
     context = {
@@ -52,6 +52,7 @@ def results(request, question_id):
 
 
 # Vote for a question choice
+@login_required
 def vote(request, question_id):
     # print(request.POST['choice'])
     question = get_object_or_404(Question, pk=question_id)
