@@ -62,7 +62,7 @@ class UserPostListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        user = get_object_or_404(User, id=self.kwargs.get('id'))
         # print(user)
         return Post.objects.filter(author=user).order_by('-date_posted')
 

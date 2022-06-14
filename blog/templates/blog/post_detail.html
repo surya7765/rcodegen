@@ -7,7 +7,7 @@
     style="width: 100px; margin-right: 20px"
   />
   <div class="article-metadata">
-      <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+      <a class="mr-2" href="{% url 'user-posts' object.author.id %}">{{ object.author }}</a>
       <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
 
       <a target="_blank" style="margin-left:24px;" href="{% url 'blog-pdf' object.id %}"><i class="fa fa-file-pdf-o" style="font-size:24px;color:red"></i></a>
