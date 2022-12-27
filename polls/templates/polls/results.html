@@ -30,7 +30,6 @@
 			method: "GET",
 			url: dataURL,
 			success:function(response){
-				{% comment %} console.log(response); {% endcomment %}
 				for(var i=0; i<response.length; i++){
 
 					var keys = Object.keys(response[i])[0];

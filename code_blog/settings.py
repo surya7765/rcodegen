@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'polls',
+    'quiz',
     'storages',
     'corsheaders',
 ]
@@ -209,12 +210,13 @@ django_heroku.settings(locals())
 
 
 # EMAIL SETTINGS
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = "smtp.zoho.in"
 EMAIL_PORT = 587
+EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 

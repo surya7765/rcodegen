@@ -39,6 +39,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path("api/", include('api.urls')),
     path("polls/", include('polls.urls')),
+    path("quiz/", include('quiz.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
