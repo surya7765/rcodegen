@@ -1,1 +1,1 @@
-web: gunicorn code_blog.wsgi
+web: python manage.py migrate && gunicorn code_blog.wsgi
